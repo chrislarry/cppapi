@@ -1,19 +1,13 @@
-# --- Stage 1: Build the C++ executable (Fix for gcc:latest) ---
-FROM debian:bookworm-slim # Or debian:bullseye-slim
-# FIX: Add repository archive configuration for the gcc base image
-RUN echo "deb http://archive.debian.org/debian buster main" > /etc/apt/sources.list && \
-    echo "deb http://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && \
-    apt-get update
-
+FROM gcc:12-bookworm AS builder # Use the modern GCC image matching bookworm
 WORKDIR /app
 COPY . .
 RUN g++ -o yfapi yfapi.cpp -lcurl -std=c++17
 
-# --- Stage 2: Create a minimal runtime image (Improved Base Image) ---
-# FIX: Use a supported Debian image (Debian 12) for long-term stability
-FROM debian:bookworm-slim
+# --- Stage 2: Create a minimal runtime image ---
+FROM debian:bookworm-slim # Use modern runtime image (Debian 12)
 
-# Install necessary runtime dependencies (no archive fix needed for Bookworm)
+# Install necessary runtime dependencies
+# NOTE: No archive fix needed for bookworm. The simple command works.
 RUN apt-get update && \
     apt-get install -y libcurl4 && \
     rm -rf /var/lib/apt/lists/*
