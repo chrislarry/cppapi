@@ -19,7 +19,11 @@ FROM debian:buster-slim
 
 # Install necessary runtime dependencies (e.g., if you use libcurl)
 # The 'libcurl4' package is often required at runtime for C++ libcurl
-RUN apt-get update && apt-get install -y libcurl4 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+# 2. Install the necessary libcurl package
+RUN apt-get install -y libcurl4
+# 3. Clean up the cache to keep the image small
+RUN rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /app
