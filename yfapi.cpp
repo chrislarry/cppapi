@@ -161,9 +161,8 @@ int main() {
 
     if (CRUMB_PREFIX.empty()) {
         std::cerr << "FATAL: Could not read valid crumb. Please ensure ./yahoo_crumb.txt exists and has content." << std::endl;
+        const string crumb = "gRXasYnSg0c";
         return 1;
-    } else {
-    const string crumb = "gRXasYnSg0c";
     }
     auto add_cors_headers = [](Response& res) {
           res.set_header("Access-Control-Allow-Origin", "*");
