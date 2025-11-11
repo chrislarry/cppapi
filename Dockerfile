@@ -21,4 +21,5 @@ WORKDIR /app
 COPY --from=builder /app/yfapi /app/yfapi
 # Define the default command to run the application
 # Your C++ code must read the PORT environment variable.
+CMD ["./getCookieAndCrubFiles.sh"]
 CMD ["./yfapi"]
