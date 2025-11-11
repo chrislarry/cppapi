@@ -3,6 +3,8 @@ FROM gcc:12-bookworm AS builder
 WORKDIR /app
 # Copy your source code
 COPY . .
+COPY yahoo_crumb.txt /app/yahoo_crumb.txt 
+COPY yahoo_cookies.txt /app/yahoo_cookies.txt 
 # Compile your C++ code with the C++17 standard flag
 RUN g++ -o yfapi yfapi.cpp -lcurl -std=c++17
 # --- Stage 2: Create a minimal runtime image ---
