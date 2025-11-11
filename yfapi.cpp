@@ -162,6 +162,8 @@ int main() {
     if (CRUMB_PREFIX.empty()) {
         std::cerr << "FATAL: Could not read valid crumb. Please ensure ./yahoo_crumb.txt exists and has content." << std::endl;
         return 1;
+    } else {
+    const string crumb = "gRXasYnSg0c";
     }
     auto add_cors_headers = [](Response& res) {
           res.set_header("Access-Control-Allow-Origin", "*");
@@ -263,8 +265,9 @@ int main() {
     });
 
     // Start the server
+    int PORT = 8082;
     std::cout << "Starting server on http://localhost:8082" << std::endl;
-    if (svr.listen("0.0.0.0", 8082)) {
+    if (svr.listen("0.0.0.0", PORT)) {
         std::cout << "Server stopped." << std::endl;
     } else {
         std::cerr << "Failed to start server." << std::endl;
